@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DEC344C29377454004CE14C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEC344B29377454004CE14C /* DetailViewController.swift */; };
+		4DEC344E2937FA16004CE14C /* DetailScreenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEC344D2937FA16004CE14C /* DetailScreenHeader.swift */; };
 		5A9B529529361A8700B88214 /* Example.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A9B529429361A8700B88214 /* Example.json */; };
 		5A9B52982936C01600B88214 /* RecipesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B52972936C01600B88214 /* RecipesProvider.swift */; };
 		5A9B529A2936C2C100B88214 /* RecipesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B52992936C2C100B88214 /* RecipesModel.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DEC344B29377454004CE14C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		4DEC344D2937FA16004CE14C /* DetailScreenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailScreenHeader.swift; path = CookBook/Controllers/DetailScreenHeader.swift; sourceTree = SOURCE_ROOT; };
 		5A9B529429361A8700B88214 /* Example.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Example.json; sourceTree = "<group>"; };
 		5A9B52972936C01600B88214 /* RecipesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesProvider.swift; sourceTree = "<group>"; };
 		5A9B52992936C2C100B88214 /* RecipesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesModel.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 		5AE1DEEA293509DE00665540 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4DEC344D2937FA16004CE14C /* DetailScreenHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			children = (
 				5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */,
 				5AE1DEF429352A1500665540 /* MainViewController.swift */,
+				4DEC344B29377454004CE14C /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -229,9 +235,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEC344C29377454004CE14C /* DetailViewController.swift in Sources */,
 				5AE1DEF3293525AD00665540 /* UIViewController+Utils.swift in Sources */,
 				5AE1DEE72935080D00665540 /* Theme.swift in Sources */,
 				5AE1DED02934F6D200665540 /* AppDelegate.swift in Sources */,
+				4DEC344E2937FA16004CE14C /* DetailScreenHeader.swift in Sources */,
 				5AE1DED22934F6D200665540 /* SceneDelegate.swift in Sources */,
 				5A9B52982936C01600B88214 /* RecipesProvider.swift in Sources */,
 				5AE1DEF129351C6E00665540 /* OnboardingViewController.swift in Sources */,

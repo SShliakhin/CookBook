@@ -38,7 +38,7 @@ extension OnboardingViewController {
     
     private func applyStyle() {
         view.backgroundColor = .systemBackground
-        startButton.setTitle("Start", for: [])
+        startButton.setTitle("Get the recipes", for: [])
     }
     
     private func applyLayout() {

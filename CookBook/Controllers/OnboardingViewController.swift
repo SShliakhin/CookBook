@@ -62,6 +62,20 @@ extension OnboardingViewController {
 // MARK: - Actions
 extension OnboardingViewController {
     @objc func startButtonTapped(_ sender: UIButton) {
+        
+        let dataProvider = RecipesProviderImpl()
+        dataProvider.loadRecipes { result in
+            switch result {
+            case let .success(model):
+                print(model.recipes[0].title)
+                print(model.recipes[0].readyInMinutes)
+                print(model.recipes[0].image)
+                print(model.recipes[0].instructions)
+            case let .failure(error):
+                print(error)
+            }
+        }
+        
         delegate?.didFinishOnboarding()
     }
 }

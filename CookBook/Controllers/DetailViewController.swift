@@ -11,6 +11,7 @@ import UIKit
 final class DetailViewController: UIViewController {
     // MARK: - Properties
     private let ingredients = "cucumber 1 pc \n tomato 1 pc \n oil 1 tbsp" //for test
+    var addedToFavourites = false
 
     // MARK: - UI elements
     private let recipeImageView: UIImageView = {
@@ -106,6 +107,20 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var addToFavouritesButton: UIButton = {
+        let button = UIButton()
+        
+        let imageName = (addedToFavourites) ? "heart.fill" : "heart"
+        
+        button.setImage(UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)), for: .normal)
+        button.tintColor = .white
+        
+        button.addTarget(self, action: #selector(addToFavourites), for: .touchUpInside)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         setupHierarchy()
@@ -120,7 +135,6 @@ final class DetailViewController: UIViewController {
     
     // MARK: - Setups
     private func setupHierarchy() {
-        view.addSubview(tableView)
         view.addSubview(recipeImageView)
         setupRecipeImageView()
         view.addSubview(shadowImageView)
@@ -129,10 +143,16 @@ final class DetailViewController: UIViewController {
         setupRecipeNameLabel()
         view.addSubview(detailStackView)
         setupDetailStackView()
+        view.addSubview(addToFavouritesButton)
+        setupAddToFavouritesButton()
+        //view.addSubview(tableView)
+        //setupRecipeTableView()
     }
     
     private func setupRecipeTableView(){
-        
+        NSLayoutConstraint.activate([
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     private func setupRecipeImageView(){
@@ -165,6 +185,20 @@ final class DetailViewController: UIViewController {
             detailStackView.widthAnchor.constraint(equalTo: recipeNameLabel.widthAnchor),
             detailStackView.heightAnchor.constraint(equalToConstant: 80)
         ])
+    }
+    
+    private func setupAddToFavouritesButton(){
+        NSLayoutConstraint.activate([
+            addToFavouritesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            addToFavouritesButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+        ])
+    }
+    
+    //MARK: - Actions
+    @objc private func addToFavourites() {
+        addedToFavourites = !addedToFavourites
+        let imageName = (addedToFavourites) ? "heart.fill" : "heart"
+        addToFavouritesButton.setImage(UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)), for: .normal)
     }
 }
 

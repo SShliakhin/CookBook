@@ -7,17 +7,22 @@
 
 import UIKit
 
+struct RecipeViewModel{
+    let recipeInstruction: RecipesModel.Instruction
+    var isChecked: Bool
+}
 
 final class DetailViewController: UIViewController {
     // MARK: - Properties
     private var ingredients = [IngredientProtocol]()
-    private var recipeInstructions = [RecipesModel.Instruction]()
+    private var recipeInstructions = [RecipeViewModel]()
     var addedToFavourites = false
-    private var isShowDescription = false
-
+    private var isShowInstructions = false
+    var selectedIndex = IndexPath(row: -1, section: 0)
+    
     // MARK: - UI elements
     private let mainStackView = UIStackView()
-    private let upperView = UIView()
+    private let previewImageView = UIView()
     
     private let recipeImageView = UIImageView(image: UIImage(named: "test_recipe_image"))
     private let shadowImageView = UIImageView(image: UIImage(named: "shadow"))
@@ -29,10 +34,9 @@ final class DetailViewController: UIViewController {
     
     private let buttonsStackView = UIStackView()
     private let ingredientsButton = UIButton()
-    private let recipeDescriptionButton = UIButton()
+    private let instructionsButton = UIButton()
 
     private lazy var addToFavouritesButton = UIButton()
-    
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -41,7 +45,7 @@ final class DetailViewController: UIViewController {
         applyLayout()
         
         loadIngredients()
-        loadRecipeInstructions()
+        loadInstructions()
         recipeTableView.dataSource = self
         recipeTableView.delegate = self
     }
@@ -55,15 +59,15 @@ extension DetailViewController{
     }
     
     @objc private func ingredientsButtonClicked() {
-        isShowDescription = false
-        recipeDescriptionButton.alpha = 0.5
+        isShowInstructions = false
+        instructionsButton.alpha = 0.5
         ingredientsButton.alpha = 1
         recipeTableView.reloadData()
     }
     
-    @objc private func recipeDescriptionButtonClicked() {
-        isShowDescription = true
-        recipeDescriptionButton.alpha = 1
+    @objc private func instructionsButtonClicked() {
+        isShowInstructions = true
+        instructionsButton.alpha = 1
         ingredientsButton.alpha = 0.5
         recipeTableView.reloadData()
     }
@@ -72,12 +76,12 @@ extension DetailViewController{
 // MARK: - Style, layout and setup
 extension DetailViewController{
     private func setup(){
-        recipeTableView.register(UITableViewCell.self, forCellReuseIdentifier: "detailCell")
+        recipeTableView.register(DetailCell.self, forCellReuseIdentifier: DetailCell.reuseID)
 
         addToFavouritesButton.addTarget(self, action: #selector(addToFavourites), for: .touchUpInside)
         
         ingredientsButton.addTarget(self, action:  #selector(ingredientsButtonClicked), for: .touchUpInside)
-        recipeDescriptionButton.addTarget(self, action:  #selector(recipeDescriptionButtonClicked), for: .touchUpInside)
+        instructionsButton.addTarget(self, action:  #selector(instructionsButtonClicked), for: .touchUpInside)
     }
     
     private func applyStyle(){
@@ -102,30 +106,30 @@ extension DetailViewController{
         addToFavouritesButton.translatesAutoresizingMaskIntoConstraints = false
         
         applyStyleToSwitchButton(for: ingredientsButton, text: "Ingredients")
-        applyStyleToSwitchButton(for: recipeDescriptionButton, text: "Recipe", alpha: 0.5)
+        applyStyleToSwitchButton(for: instructionsButton, text: "Recipe", alpha: 0.5)
 
-        upperView.translatesAutoresizingMaskIntoConstraints = false
+        previewImageView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func applyLayout(){
-        upperView.addSubview(recipeImageView)
-        upperView.addSubview(shadowImageView)
-        upperView.addSubview(recipeNameLabel)
+        previewImageView.addSubview(recipeImageView)
+        previewImageView.addSubview(shadowImageView)
+        previewImageView.addSubview(recipeNameLabel)
         constructStackView()
-        upperView.addSubview(detailStackView)
-        upperView.addSubview(addToFavouritesButton)
+        previewImageView.addSubview(detailStackView)
+        previewImageView.addSubview(addToFavouritesButton)
         
         arrangeStackView(
             for: buttonsStackView,
-            subviews: [ingredientsButton, recipeDescriptionButton],
+            subviews: [ingredientsButton, instructionsButton],
             axis: .horizontal,
             distribution: .fillEqually
         )
         
         arrangeStackView(
             for: mainStackView,
-            subviews: [upperView, buttonsStackView, recipeTableView],
+            subviews: [previewImageView, buttonsStackView, recipeTableView],
             spacing: 0
         )
         
@@ -138,29 +142,29 @@ extension DetailViewController{
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
-            upperView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
-            upperView.heightAnchor.constraint(equalToConstant: 350),
+            previewImageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            previewImageView.heightAnchor.constraint(equalToConstant: 350),
             
-            recipeImageView.centerXAnchor.constraint(equalTo: upperView.centerXAnchor),
-            recipeImageView.bottomAnchor.constraint(equalTo: upperView.bottomAnchor),
-            recipeImageView.topAnchor.constraint(equalTo: upperView.topAnchor),
+            recipeImageView.centerXAnchor.constraint(equalTo: previewImageView.centerXAnchor),
+            recipeImageView.bottomAnchor.constraint(equalTo: previewImageView.bottomAnchor),
+            recipeImageView.topAnchor.constraint(equalTo: previewImageView.topAnchor),
 
-            shadowImageView.centerXAnchor.constraint(equalTo: upperView.centerXAnchor),
+            shadowImageView.centerXAnchor.constraint(equalTo: previewImageView.centerXAnchor),
             shadowImageView.bottomAnchor.constraint(equalTo: recipeImageView.bottomAnchor),
             
-            recipeNameLabel.widthAnchor.constraint(equalTo: upperView.widthAnchor, constant: -40),
-            recipeNameLabel.topAnchor.constraint(equalTo: upperView.topAnchor, constant: 220),
-            recipeNameLabel.leadingAnchor.constraint(equalTo: upperView.leadingAnchor, constant: 25),
+            recipeNameLabel.widthAnchor.constraint(equalTo: previewImageView.widthAnchor, constant: -40),
+            recipeNameLabel.topAnchor.constraint(equalTo: previewImageView.topAnchor, constant: 220),
+            recipeNameLabel.leadingAnchor.constraint(equalTo: previewImageView.leadingAnchor, constant: 25),
             
-            detailStackView.centerXAnchor.constraint(equalTo: upperView.centerXAnchor),
+            detailStackView.centerXAnchor.constraint(equalTo: previewImageView.centerXAnchor),
             detailStackView.bottomAnchor.constraint(equalTo: recipeImageView.bottomAnchor),
             detailStackView.widthAnchor.constraint(equalTo: recipeNameLabel.widthAnchor),
             detailStackView.heightAnchor.constraint(equalToConstant: 80),
             
             buttonsStackView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor, multiplier: 1),
             
-            addToFavouritesButton.trailingAnchor.constraint(equalTo: upperView.trailingAnchor, constant: -20),
-            addToFavouritesButton.topAnchor.constraint(equalTo: upperView.topAnchor, constant: 20),
+            addToFavouritesButton.trailingAnchor.constraint(equalTo: previewImageView.trailingAnchor, constant: -20),
+            addToFavouritesButton.topAnchor.constraint(equalTo: previewImageView.topAnchor, constant: 20),
         ])
     }
     
@@ -267,41 +271,43 @@ extension DetailViewController: UITableViewDataSource{
     // MARK: - Data loading
     private func loadIngredients() {
         ingredients.append(
-            IngredientModel(title: "cucumber", amount: "1 pc"))
+            IngredientModel(title: "1 cucumber", picture: UIImage(systemName: "carrot")!))
         ingredients.append(
-            IngredientModel(title: "tomato", amount: "1 pc"))
+            IngredientModel(title: "1 tomato", picture: UIImage(systemName: "carrot")!))
         ingredients.append(
-            IngredientModel(title: "oil", amount: "1 tbsp"))
+            IngredientModel(title: "1 tablespoon oil", picture: UIImage(systemName: "carrot")!))
         ingredients.sort{ $0.title < $1.title }
     }
     
-    private func loadRecipeInstructions(){
-        recipeInstructions.append(RecipesModel.Instruction(step: "Clean and chop the vegatables", seconds: 120))
-        recipeInstructions.append(RecipesModel.Instruction(step: "Add oil and seasonings", seconds: 60))
+    private func loadInstructions(){
+        recipeInstructions.append(RecipeViewModel(recipeInstruction: RecipesModel.Instruction(step: "Clean and chop the vegatables", seconds: 120), isChecked: false))
+        recipeInstructions.append(RecipeViewModel(recipeInstruction: RecipesModel.Instruction(step: "Add oil and seasonings", seconds: 60), isChecked: false))
     }
-    
-    private func configure(cell: inout UITableViewCell, for indexPath:
-    IndexPath) {
-        var configuration = cell.defaultContentConfiguration()
-        if isShowDescription{
-            configuration.text = String(indexPath.row + 1) + ". " + recipeInstructions[indexPath.row].step
-            configuration.secondaryText = String(recipeInstructions[indexPath.row].seconds / 60) + " min"
-        } else {
-            configuration.text = ingredients[indexPath.row].title
-            configuration.secondaryText = ingredients[indexPath.row].amount
-        }
-        cell.contentConfiguration = configuration
-    }
-    
+        
     // MARK: - Table properties
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isShowInstructions{
+            let indexesToRedraw = [indexPath]
+            selectedIndex = indexPath
+            recipeInstructions[indexPath.row].isChecked = !recipeInstructions[indexPath.row].isChecked
+            tableView.reloadRows(at: indexesToRedraw, with: .fade)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isShowDescription ? recipeInstructions.count : ingredients.count
+        return isShowInstructions ? recipeInstructions.count : ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath)
-        configure(cell: &cell, for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: DetailCell.reuseID, for: indexPath) as! DetailCell
+        if isShowInstructions{
+            let recipeInstruction = recipeInstructions[indexPath.row]
+            cell.configure(recipeInstruction: recipeInstruction)
+        }
+        else {
+            let ingredient = ingredients[indexPath.row]
+            cell.configure(ingredient: ingredient as! IngredientModel)
+        }
         return cell
     }
 }

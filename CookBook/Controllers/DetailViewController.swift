@@ -12,6 +12,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Properties
     private var ingredients = [IngredientProtocol]()
     var addedToFavourites = false
+    private var isShowDescription = false
 
     // MARK: - UI elements
     private let mainStackView = UIStackView()
@@ -24,8 +25,13 @@ final class DetailViewController: UIViewController {
     private let recipeNameLabel = UILabel()
     
     private let detailStackView = UIStackView()
+    
+    private let buttonsStackView = UIStackView()
+    private let ingredientsButton = UIButton()
+    private let recipeDescriptionButton = UIButton()
 
     private lazy var addToFavouritesButton = UIButton()
+    
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -45,6 +51,18 @@ extension DetailViewController{
         let imageName = (addedToFavourites) ? "heart.fill" : "heart"
         addToFavouritesButton.setImage(UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)), for: .normal)
     }
+    
+    @objc private func ingredientsButtonClicked() {
+        isShowDescription = false
+        recipeDescriptionButton.alpha = 0.5
+        ingredientsButton.alpha = 1
+    }
+    
+    @objc private func recipeDescriptionButtonClicked() {
+        isShowDescription = true
+        recipeDescriptionButton.alpha = 1
+        ingredientsButton.alpha = 0.5
+    }
 }
 
 // MARK: - Style, layout and setup
@@ -53,6 +71,9 @@ extension DetailViewController{
         recipeTableView.register(UITableViewCell.self, forCellReuseIdentifier: "detailCell")
 
         addToFavouritesButton.addTarget(self, action: #selector(addToFavourites), for: .touchUpInside)
+        
+        ingredientsButton.addTarget(self, action:  #selector(ingredientsButtonClicked), for: .touchUpInside)
+        recipeDescriptionButton.addTarget(self, action:  #selector(recipeDescriptionButtonClicked), for: .touchUpInside)
     }
     
     private func applyStyle(){
@@ -71,11 +92,14 @@ extension DetailViewController{
         detailStackView.axis = .horizontal
         detailStackView.alignment = .center
         detailStackView.distribution = .equalSpacing
-                
+        
         addToFavouritesButton.setImage(UIImage(systemName: (addedToFavourites) ? "heart.fill" : "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)), for: .normal)
         addToFavouritesButton.tintColor = .white
         addToFavouritesButton.translatesAutoresizingMaskIntoConstraints = false
         
+        applyStyleToSwitchButton(for: ingredientsButton, text: "Ingredients")
+        applyStyleToSwitchButton(for: recipeDescriptionButton, text: "Recipe", alpha: 0.5)
+
         upperView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -87,11 +111,20 @@ extension DetailViewController{
         constructStackView()
         upperView.addSubview(detailStackView)
         upperView.addSubview(addToFavouritesButton)
+        
         arrangeStackView(
-                    for: mainStackView,
-                    subviews: [upperView, recipeTableView],
-                    spacing: 20
-            )
+            for: buttonsStackView,
+            subviews: [ingredientsButton, recipeDescriptionButton],
+            axis: .horizontal,
+            distribution: .fillEqually
+        )
+        
+        arrangeStackView(
+            for: mainStackView,
+            subviews: [upperView, buttonsStackView, recipeTableView],
+            spacing: 5
+        )
+        
         
         view.addSubview(mainStackView)
 
@@ -120,6 +153,8 @@ extension DetailViewController{
             detailStackView.widthAnchor.constraint(equalTo: recipeNameLabel.widthAnchor),
             detailStackView.heightAnchor.constraint(equalToConstant: 80),
             
+            buttonsStackView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor, multiplier: 1),
+            
             addToFavouritesButton.trailingAnchor.constraint(equalTo: upperView.trailingAnchor, constant: -20),
             addToFavouritesButton.topAnchor.constraint(equalTo: upperView.topAnchor, constant: 20),
         ])
@@ -132,13 +167,30 @@ extension DetailViewController{
         imageView.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    private func applyStyleToSwitchButton(
+        for button: UIButton,
+        text: String = "",
+        isEnabled: Bool = true,
+        alpha: Float = 1){
+            button.isEnabled = true
+            button.alpha = CGFloat(alpha)
+            
+            button.backgroundColor = .clear
+            button.setTitleColor(.black, for: .normal)
+            button.setTitle(text, for: .normal)
+            button.layer.cornerRadius = 0
+            button.layer.borderWidth = 1
+            button.layer.borderColor = CGColor(gray: 0.1, alpha: 1)
+            button.translatesAutoresizingMaskIntoConstraints = false
+        }
+    
     private func arrangeStackView(
-            for stackView: UIStackView,
-            subviews: [UIView],
-            spacing: CGFloat = 0,
-            axis: NSLayoutConstraint.Axis = .vertical,
-            distribution: UIStackView.Distribution = .fill,
-            aligment: UIStackView.Alignment = .fill
+        for stackView: UIStackView,
+        subviews: [UIView],
+        spacing: CGFloat = 0,
+        axis: NSLayoutConstraint.Axis = .vertical,
+        distribution: UIStackView.Distribution = .fill,
+        aligment: UIStackView.Alignment = .fill
         ) {
             stackView.axis = axis
             stackView.spacing = spacing

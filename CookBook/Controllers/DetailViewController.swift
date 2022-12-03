@@ -11,6 +11,7 @@ import UIKit
 final class DetailViewController: UIViewController {
     // MARK: - Properties
     private var ingredients = [IngredientProtocol]()
+    private var recipeInstructions = [RecipesModel.Instruction]()
     var addedToFavourites = false
     private var isShowDescription = false
 
@@ -40,6 +41,7 @@ final class DetailViewController: UIViewController {
         applyLayout()
         
         loadIngredients()
+        loadRecipeInstructions()
         recipeTableView.dataSource = self
         recipeTableView.delegate = self
     }
@@ -56,12 +58,14 @@ extension DetailViewController{
         isShowDescription = false
         recipeDescriptionButton.alpha = 0.5
         ingredientsButton.alpha = 1
+        recipeTableView.reloadData()
     }
     
     @objc private func recipeDescriptionButtonClicked() {
         isShowDescription = true
         recipeDescriptionButton.alpha = 1
         ingredientsButton.alpha = 0.5
+        recipeTableView.reloadData()
     }
 }
 
@@ -122,7 +126,7 @@ extension DetailViewController{
         arrangeStackView(
             for: mainStackView,
             subviews: [upperView, buttonsStackView, recipeTableView],
-            spacing: 5
+            spacing: 0
         )
         
         
@@ -174,7 +178,6 @@ extension DetailViewController{
         alpha: Float = 1){
             button.isEnabled = true
             button.alpha = CGFloat(alpha)
-            
             button.backgroundColor = .clear
             button.setTitleColor(.black, for: .normal)
             button.setTitle(text, for: .normal)
@@ -272,17 +275,27 @@ extension DetailViewController: UITableViewDataSource{
         ingredients.sort{ $0.title < $1.title }
     }
     
+    private func loadRecipeInstructions(){
+        recipeInstructions.append(RecipesModel.Instruction(step: "Clean and chop the vegatables", seconds: 120))
+        recipeInstructions.append(RecipesModel.Instruction(step: "Add oil and seasonings", seconds: 60))
+    }
+    
     private func configure(cell: inout UITableViewCell, for indexPath:
     IndexPath) {
         var configuration = cell.defaultContentConfiguration()
-        configuration.text = ingredients[indexPath.row].title
-        configuration.secondaryText = ingredients[indexPath.row].amount
+        if isShowDescription{
+            configuration.text = String(indexPath.row + 1) + ". " + recipeInstructions[indexPath.row].step
+            configuration.secondaryText = String(recipeInstructions[indexPath.row].seconds / 60) + " min"
+        } else {
+            configuration.text = ingredients[indexPath.row].title
+            configuration.secondaryText = ingredients[indexPath.row].amount
+        }
         cell.contentConfiguration = configuration
     }
     
     // MARK: - Table properties
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredients.count
+        return isShowDescription ? recipeInstructions.count : ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

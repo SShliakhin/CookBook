@@ -5,17 +5,19 @@ final class SearchViewController: UIViewController {
     private lazy var tableView: SearchTableView = {
         let view = SearchTableView(frame: view.frame, style: .plain)
         view.tableHeaderView = searchBar
+        view.output = self
         return view
     }()
     private lazy var searchBar: UISearchBar = {
-        var view = UISearchBar(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        var view = UISearchBar(frame: .zero)
         view.delegate = self
         view.showsCancelButton = false
         view.searchBarStyle = .minimal
-        view.placeholder = "Search Here....."
         view.sizeToFit()
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
+        view.searchTextField.backgroundColor = .clear
         view.searchTextField.leftView?.tintColor = Theme.appColor
+        view.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search Here.....", attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
         return view
     }()
     
@@ -28,7 +30,6 @@ final class SearchViewController: UIViewController {
 
 private extension SearchViewController {
     func setup() {
-        view.backgroundColor = .white
         title = "Search"
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -50,5 +51,11 @@ extension SearchViewController: UISearchBarDelegate {
         networkClient.searchRecipe(with: searchText) { result in
             self.tableView.createSnapshot(items: result.results, toSection: .main)
         }
+    }
+}
+
+extension SearchViewController: SearchTableViewOutput {
+    func didPressedCell(_ indexPath: IndexPath) {
+        
     }
 }

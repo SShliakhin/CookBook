@@ -1,11 +1,16 @@
 import UIKit
 
+protocol SearchTableViewOutput: AnyObject {
+    func didPressedCell(_ indexPath: IndexPath)
+}
+
 final class SearchTableView: UITableView {
     
     enum Section: Hashable {
         case main
     }
     
+    var output: SearchTableViewOutput!
     var data: [SearchResult]?
     var source: UITableViewDiffableDataSource<Section, SearchResult>?
     
@@ -24,7 +29,7 @@ final class SearchTableView: UITableView {
 private extension SearchTableView {
     func configureDataSource() {
         source = UITableViewDiffableDataSource<Section, SearchResult>(tableView: self, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
-            let cell = tableView.dequeueCell(type: SearchTableViewCell.self, with: indexPath)
+            let cell = tableView.dequeueCell(type: SearchTableViewMiniCell.self, with: indexPath)
             cell.configure(recipe: self.data?[indexPath.row])
             return cell
         })
@@ -34,10 +39,12 @@ private extension SearchTableView {
     
     func setup() {
         backgroundColor = .clear
-        separatorStyle = .none
+        estimatedRowHeight = 120
+        rowHeight = UITableView.automaticDimension
         keyboardDismissMode = .onDrag
+        delegate = self
         translatesAutoresizingMaskIntoConstraints = false
-        register(type: SearchTableViewCell.self)
+        register(type: SearchTableViewMiniCell.self)
         configureDataSource()
     }
 }
@@ -54,5 +61,13 @@ extension SearchTableView {
         snapshot.appendItems(items, toSection: toSection)
 
         source?.apply(snapshot, animatingDifferences: true)
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension SearchTableView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        output.didPressedCell(indexPath)
     }
 }

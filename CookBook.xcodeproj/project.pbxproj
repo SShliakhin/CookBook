@@ -29,6 +29,7 @@
 		5AE1DEF129351C6E00665540 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */; };
 		5AE1DEF3293525AD00665540 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF2293525AD00665540 /* UIViewController+Utils.swift */; };
 		5AE1DEF529352A1500665540 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF429352A1500665540 /* MainViewController.swift */; };
+		A5286E7B293D1DD8006A641E /* SearchTableViewMiniCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */; };
 		A528B7C529365419001812A4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C429365419001812A4 /* SearchViewController.swift */; };
 		A528B7C72936549A001812A4 /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C62936549A001812A4 /* SearchTableView.swift */; };
 		A528B7CA293662A0001812A4 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C9293662A0001812A4 /* SearchResults.swift */; };
@@ -66,6 +67,7 @@
 		5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5AE1DEF2293525AD00665540 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		5AE1DEF429352A1500665540 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewMiniCell.swift; sourceTree = "<group>"; };
 		A528B7C429365419001812A4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A528B7C62936549A001812A4 /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchTableView.swift; path = CookBook/Views/SearchScreen/SearchTableView.swift; sourceTree = SOURCE_ROOT; };
 		A528B7C9293662A0001812A4 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 		A528B7CD293668C2001812A4 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
+				A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */,
 				A528B7C62936549A001812A4 /* SearchTableView.swift */,
 				A528B7CE293668E2001812A4 /* SearchTableViewCell.swift */,
 				A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */,
@@ -324,6 +327,7 @@
 				37321857293814C8000F7062 /* CompMockData.swift in Sources */,
 				373218512937BE4F000F7062 /* PopularViewController.swift in Sources */,
 				3732185E29382AB6000F7062 /* HeaderSupplementaryView.swift in Sources */,
+				A5286E7B293D1DD8006A641E /* SearchTableViewMiniCell.swift in Sources */,
 				5AE1DEF3293525AD00665540 /* UIViewController+Utils.swift in Sources */,
 				A528B7D529366AB2001812A4 /* UITableView+.swift in Sources */,
 				A528B7C72936549A001812A4 /* SearchTableView.swift in Sources */,

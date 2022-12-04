@@ -111,7 +111,7 @@ extension PopularViewController {
                                                             heightDimension: .fractionalWidth(1)))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.9),
-                                                                         heightDimension: .fractionalWidth(0.45)),
+                                                                         heightDimension: .fractionalWidth(1)),
                                                        subitems: [item])
         
         let section = createLayoutSection(group: group,
@@ -175,7 +175,7 @@ extension PopularViewController: UICollectionViewDataSource {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: "HeaderSupplementaryView",
                                                                          for: indexPath) as! HeaderSupplementaryView
-            header.configureHeader(categoryName: sections[indexPath.row].title)
+            header.configureHeader(categoryName: sections[indexPath.section].title)
             return header
         default:
             return UICollectionReusableView()

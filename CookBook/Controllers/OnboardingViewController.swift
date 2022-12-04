@@ -19,13 +19,17 @@ final class OnboardingViewController: UIViewController {
         imageView.image = UIImage(named: "Onboarding")
         return imageView
     }()
-    private let startButton = UIButton()
+    private let startButton: UIButton = {
+        let button = UIButton()
+        button.frame.size = CGSize(width: 700, height: 40)
+        return button
+    }()
     
     private let screenLabel1: UILabel = {
         let label = UILabel()
         label.text = "Happy cooking!"
-        label.textColor = Theme.grassColor
-        label.font = .boldSystemFont(ofSize: 35)
+        label.textColor = Theme.darkGreenColor
+        label.font = .boldSystemFont(ofSize: 32)
         return label
     }()
     
@@ -33,11 +37,11 @@ final class OnboardingViewController: UIViewController {
         let label = UILabel()
         label.text = """
 Discover millions of recipes
-ecxlusive in Cooksy Dance.
+exclusive in Cooksy Dance.
 """
         label.numberOfLines = 2
-        label.textColor = Theme.grassColor
-        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = Theme.darkGreenColor
+        label.font = .systemFont(ofSize: 16)
         return label
     }()
     
@@ -58,11 +62,12 @@ extension OnboardingViewController {
     
     private func applyStyle() {
         view.backgroundColor = Theme.beigeColor
-        startButton.setTitle("  Get the recipes  ", for: [])
+        startButton.setTitle("   Get the recipes   ", for: [])
+        
         startButton.layer.borderWidth = 3
         startButton.layer.cornerRadius = 10
         startButton.layer.borderColor = Theme.orangeColor.cgColor
-        startButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
+        startButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
         startButton.layer.backgroundColor = Theme.orangeColor.cgColor
         startButton.setTitleColor(.white, for: .normal)
     }

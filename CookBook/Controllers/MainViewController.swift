@@ -35,7 +35,10 @@ extension MainViewController {
     }
 
     private func setupTabBar() {
-        tabBar.tintColor = Theme.appColor
+        tabBar.clipsToBounds = true
+        
+        tabBar.tintColor = Theme.cbGreen50
+        tabBar.unselectedItemTintColor = Theme.cbYellow50
         tabBar.isTranslucent = false
     }
 }
@@ -47,6 +50,7 @@ final class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .systemOrange
+        title = "Favorite"
         startButton.setTitle("Recipe", for: [])
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .primaryActionTriggered)
         
@@ -61,11 +65,5 @@ final class FavoriteViewController: UIViewController {
     @objc func startButtonTapped(_ sender: UIButton) {
         let vc = DetailViewController()
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-final class DetailViewController: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .systemGreen
     }
 }

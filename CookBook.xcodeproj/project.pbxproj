@@ -43,6 +43,7 @@
 		A57D213E2938AB36007BDCC8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D213D2938AB36007BDCC8 /* ImageCache.swift */; };
 		A57D214029390D81007BDCC8 /* ImageLabelStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */; };
 		A57D21422939F589007BDCC8 /* SearchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D21412939F589007BDCC8 /* SearchImageView.swift */; };
+		A5F571C7293E5C6900B4A7D1 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F571C6293E5C6900B4A7D1 /* SearchModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		A57D213D2938AB36007BDCC8 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelStack.swift; sourceTree = "<group>"; };
 		A57D21412939F589007BDCC8 /* SearchImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageView.swift; sourceTree = "<group>"; };
+		A5F571C6293E5C6900B4A7D1 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 			children = (
 				A528B7C9293662A0001812A4 /* SearchResults.swift */,
 				A528B7CB2936638F001812A4 /* SearchResult.swift */,
+				A5F571C6293E5C6900B4A7D1 /* SearchModel.swift */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				5A9B529C2936C75700B88214 /* RecipesData.swift in Sources */,
 				4DF5497F293BD05E00423EEB /* DetailCell.swift in Sources */,
 				A528B7CF293668E2001812A4 /* SearchTableViewCell.swift in Sources */,
+				A5F571C7293E5C6900B4A7D1 /* SearchModel.swift in Sources */,
 				5AE1DEE82935080D00665540 /* APIKey.swift in Sources */,
 				A528B7C529365419001812A4 /* SearchViewController.swift in Sources */,
 				A528B7D329366906001812A4 /* UITableViewCell+.swift in Sources */,

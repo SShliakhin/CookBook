@@ -14,6 +14,7 @@ final class SearchViewController: UIViewController {
         view.showsCancelButton = false
         view.searchBarStyle = .minimal
         view.backgroundColor = .clear
+        view.sizeToFit()
         view.placeholder = "Search fun recipes"
         view.searchTextField.leftView?.tintColor = Theme.cbYellow50
         view.searchTextField.backgroundColor = Theme.appColor
@@ -48,7 +49,10 @@ extension SearchViewController: UISearchBarDelegate {
         guard let searchText = searchBar.text else { return }
         let networkClient = NetworkClient()
         networkClient.searchRecipe(with: searchText) { result in
-            self.tableView.createSnapshot(items: result.results, toSection: .main)
+            let newResults = result.results.map { result in
+                SearchModel(searchResult: result)
+            }
+            self.tableView.createSnapshot(items: newResults, toSection: .main)
         }
     }
 }

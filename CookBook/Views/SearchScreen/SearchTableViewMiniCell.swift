@@ -82,13 +82,17 @@ extension SearchTableViewMiniCell {
 // MARK: - Private func
 
 private extension SearchTableViewMiniCell {
+    var imageConfiguration: UIImage.Configuration {
+        let configuration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
+        return configuration
+    }
+    
     @objc func favoriteButtonPressed(_ sender: UIButton!) {
-        if sender.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))) {
-            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))), for: .normal)
+        if sender.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: imageConfiguration) {
+            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: imageConfiguration), for: .normal)
         } else {
-            sender.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))), for: .normal)
+            sender.setImage(UIImage(systemName: "heart", withConfiguration: imageConfiguration), for: .normal)
         }
-        
     }
     
     func setAttributedString(_ numbers: String, _ text: String) -> NSAttributedString {

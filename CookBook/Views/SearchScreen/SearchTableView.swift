@@ -10,7 +10,7 @@ final class SearchTableView: UITableView {
         case main
     }
     
-    weak var output: SearchTableViewOutput!
+    weak var output: SearchTableViewOutput?
     var data: [SearchModel]?
     var source: UITableViewDiffableDataSource<Section, SearchModel>?
     
@@ -68,6 +68,6 @@ extension SearchTableView {
 
 extension SearchTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        output.didPressedCell(indexPath)
+        output?.didPressedCell(indexPath)
     }
 }

@@ -11,8 +11,8 @@ final class SearchTableView: UITableView {
     }
     
     var output: SearchTableViewOutput!
-    var data: [SearchResult]?
-    var source: UITableViewDiffableDataSource<Section, SearchResult>?
+    var data: [SearchModel]?
+    var source: UITableViewDiffableDataSource<Section, SearchModel>?
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -28,7 +28,7 @@ final class SearchTableView: UITableView {
 
 private extension SearchTableView {
     func configureDataSource() {
-        source = UITableViewDiffableDataSource<Section, SearchResult>(tableView: self, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
+        source = UITableViewDiffableDataSource<Section, SearchModel>(tableView: self, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             let cell = tableView.dequeueCell(type: SearchTableViewMiniCell.self, with: indexPath)
             cell.configure(recipe: self.data?[indexPath.row])
             return cell
@@ -52,10 +52,10 @@ private extension SearchTableView {
 // MARK: - Public func
 
 extension SearchTableView {
-    func createSnapshot(items: [SearchResult], toSection: Section) {
+    func createSnapshot(items: [SearchModel], toSection: Section) {
         data = items
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, SearchResult>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SearchModel>()
 
         snapshot.appendSections([toSection])
         snapshot.appendItems(items, toSection: toSection)

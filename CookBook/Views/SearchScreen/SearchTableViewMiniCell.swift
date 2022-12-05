@@ -56,22 +56,9 @@ final class SearchTableViewMiniCell: UITableViewCell {
 // MARK: - Public func
 
 extension SearchTableViewMiniCell {
-    func configure(recipe: SearchResult?) {
+    func configure(recipe: SearchModel?) {
         guard let recipe = recipe else { return }
-        let names = ["Ingrediens", "Calories", "Minutes"]
-        
-        let recipeString = recipe.title + "\n"
-        let ingidientsString = String(recipe.nutrition.ingredients.count) + " \(names[0])\n"
-        let caloriesString = String(Int(recipe.nutrition.nutrients[0].amount)) + " \(names[1])\n"
-        let timeString = String(recipe.readyInMinutes) + " \(names[2])"
-        
-        let attributedString = NSMutableAttributedString(string: recipeString + ingidientsString + caloriesString + timeString)
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .headline), range: NSMakeRange(0, recipeString.count))
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(recipeString.count + ingidientsString.count - 11, 10))
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(recipeString.count + ingidientsString.count + caloriesString.count - 9, 8))
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(recipeString.count + ingidientsString.count + caloriesString.count + timeString.count - 7, 7))
-        recipeLabel.attributedText = attributedString
-        
+        recipeLabel.attributedText = recipe.recipeString
         likeButton.setTitle(" \(recipe.aggregateLikes)", for: .normal)
         networkClient.getImageFrom(stringUrl: recipe.image) { [weak self] image in
             self?.searchImageView.configure(image: image)
@@ -93,17 +80,6 @@ private extension SearchTableViewMiniCell {
         } else {
             sender.setImage(UIImage(systemName: "heart", withConfiguration: imageConfiguration), for: .normal)
         }
-    }
-    
-    func setAttributedString(_ numbers: String, _ text: String) -> NSAttributedString {
-        let attributedString = NSMutableAttributedString(string: numbers + " " + text)
-        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.preferredFont(forTextStyle: .headline), range: NSMakeRange(0, numbers.count))
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.label, range: NSMakeRange(0, numbers.count))
-        
-        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(numbers.count + 1, text.count))
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.label, range: NSMakeRange(numbers.count + 1, text.count))
-        
-        return attributedString
     }
     
     private func setup() {

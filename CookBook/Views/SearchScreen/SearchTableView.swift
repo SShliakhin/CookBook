@@ -10,7 +10,7 @@ final class SearchTableView: UITableView {
         case main
     }
     
-    var output: SearchTableViewOutput!
+    weak var output: SearchTableViewOutput!
     var data: [SearchModel]?
     var source: UITableViewDiffableDataSource<Section, SearchModel>?
     

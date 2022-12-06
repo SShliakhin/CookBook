@@ -41,7 +41,6 @@ private extension SearchViewController {
     }
 }
 
-
 // MARK: - UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
@@ -57,8 +56,9 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
-extension SearchViewController: SearchTableViewOutput {
-    func didPressedCell(_ indexPath: IndexPath) {
+// MARK: - SearchTableViewDelegate
+extension SearchViewController: SearchTableViewDelegate {
+    func didPressedCell(_ searchTableView: UITableView, by indexPath: IndexPath) {
         let vc = DetailViewController()
         navigationController?.pushViewController(vc, animated: true)
     }

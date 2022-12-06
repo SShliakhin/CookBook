@@ -96,15 +96,17 @@ extension PopularViewController {
                                                                          heightDimension: .fractionalWidth(1)),
                                                        subitems: [item])
         
-        let section = createLayoutSection(group: group,
-                                          behavior: .groupPaging,
-                                          intergrouupSpacing: 15,
-                                          supplementaryItems: [supplementaryHeaderItem()],
-                                          contentInsets: false)
+        let section = createLayoutSection(
+            group: group,
+            behavior: .groupPaging,
+            intergrouupSpacing: 15,
+            supplementaryItems: [supplementaryHeaderItem()],
+            contentInsets: false
+        )
         section.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 0)
         return section
     }
-
+    
     private func createRandomSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalWidth(1)))
@@ -113,16 +115,18 @@ extension PopularViewController {
                                                                          heightDimension: .fractionalWidth(0.55)),
                                                        subitems: [item])
         
-        let section = createLayoutSection(group: group,
-                                          behavior: .groupPaging,
-                                          intergrouupSpacing: 5,
-                                          supplementaryItems: [supplementaryHeaderItem()],
-                                          contentInsets: false)
+        let section = createLayoutSection(
+            group: group,
+            behavior: .groupPaging,
+            intergrouupSpacing: 5,
+            supplementaryItems: [supplementaryHeaderItem()],
+            contentInsets: false
+        )
         section.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 0)
         return section
     }
     
-
+    
     
     private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
         .init(layoutSize: .init(widthDimension: .fractionalWidth(1),

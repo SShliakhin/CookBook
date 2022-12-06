@@ -14,8 +14,7 @@ enum ListSection {
     // Define sections
     var items: [ListItem] {
         switch self {
-        case .popular(let items),
-                .random(let items):
+        case .popular(let items), .random(let items):
             return items
         }
     }
@@ -31,7 +30,6 @@ enum ListSection {
             return "Popular Recipes"
         case .random(_):
             return "Random Recipes"
-            
         }
     }
 }

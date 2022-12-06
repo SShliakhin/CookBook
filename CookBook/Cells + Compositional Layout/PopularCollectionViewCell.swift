@@ -19,10 +19,20 @@ class PopularCollectionViewCell: UICollectionViewCell {
     
     private let backgroundTitleView: UIView = {
        let view = UIView()
-        view.backgroundColor = .clear
+        view.backgroundColor = .white
         view.alpha = 0.6
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Popular Meal"
+        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -41,6 +51,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 10
         addSubview(popularImageView)
         addSubview(backgroundTitleView)
+        addSubview(nameLabel)
     }
     
     func configureCell(imageName: String) {
@@ -58,7 +69,10 @@ class PopularCollectionViewCell: UICollectionViewCell {
             backgroundTitleView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             backgroundTitleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             backgroundTitleView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            backgroundTitleView.heightAnchor.constraint(equalTo: heightAnchor, constant: 0.1),
+            backgroundTitleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1),
+            
+            nameLabel.centerYAnchor.constraint(equalTo: backgroundTitleView.centerYAnchor),
+            nameLabel.centerXAnchor.constraint(equalTo: backgroundTitleView.centerXAnchor)
         ])
     }
 }

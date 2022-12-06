@@ -81,7 +81,7 @@ extension OnboardingViewController {
             
             startButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -35),
-            startButton.heightAnchor.constraint(equalToConstant: 40),
+            startButton.heightAnchor.constraint(equalToConstant: 50),
             
             screenLabel2.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -40),
             screenLabel2.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),

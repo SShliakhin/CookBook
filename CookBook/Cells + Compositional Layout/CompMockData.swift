@@ -11,19 +11,19 @@ struct CompMockData {
     
     static let shared = CompMockData()
     
-    private let random: ListSection = {
-        .random([
-            .init(title: "Random 1", image: "rmeal1"),
-            .init(title: "Random 2", image: "rmeal2"),
-            .init(title: "Random 3", image: "rmeal3"),
-            .init(title: "Random 4", image: "rmeal4"),
-            .init(title: "Random 3", image: "rmeal5"),
-            .init(title: "Random 4", image: "rmeal6")
+    private let vegan: ListSection = {
+        .vegan([
+            .init(title: "Vegan 1", image: "rmeal1"),
+            .init(title: "Vegan 2", image: "rmeal2"),
+            .init(title: "Vegan 3", image: "rmeal3"),
+            .init(title: "Vegan 4", image: "rmeal4"),
+            .init(title: "Vegan 3", image: "rmeal5"),
+            .init(title: "Vegan 4", image: "rmeal6")
         ])
     }()
     
-    private let popular: ListSection = {
-        .popular([
+    private let random: ListSection = {
+        .random([
             .init(title: "Popular 1", image: "meal1"),
             .init(title: "Popular 2", image: "meal2"),
             .init(title: "Popular 3", image: "meal3"),
@@ -34,6 +34,6 @@ struct CompMockData {
     }()
     
     var pageData: [ListSection] {
-        [popular, random]
+        [random, vegan]
     }
 }

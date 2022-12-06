@@ -8,14 +8,14 @@
 import Foundation
 
 enum ListSection {
-    case random([ListItem])
     case popular([ListItem])
+    case random([ListItem])
     
     // Define sections
     var items: [ListItem] {
         switch self {
-        case .random(let items),
-                .popular(let items):
+        case .popular(let items),
+                .random(let items):
             return items
         }
     }
@@ -27,10 +27,11 @@ enum ListSection {
     // Sections Headers
     var title: String {
         switch self {
-        case .random(_):
-            return "Random Recipes"
         case .popular(_):
             return "Popular Recipes"
+        case .random(_):
+            return "Random Recipes"
+            
         }
     }
 }

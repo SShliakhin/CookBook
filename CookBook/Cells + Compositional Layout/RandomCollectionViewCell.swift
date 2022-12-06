@@ -10,7 +10,7 @@ import UIKit
 class RandomCollectionViewCell: UICollectionViewCell {
     private let randomImageView: UIImageView = {
        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -33,7 +33,7 @@ class RandomCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(imageName: String) {
-        randomImageView.image = UIImage(named: "Screenshot 2022-12-01 at 13.44.23")
+        randomImageView.image = UIImage(named: imageName)
     }
     
     func setConstraints() {

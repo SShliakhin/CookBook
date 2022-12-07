@@ -56,7 +56,7 @@ private extension FavoriteViewController {
         tableView.delegate = self
         tableView.dataSource = dataSource
         
-        tableView.register(SearchTableViewMiniCell.self, forCellReuseIdentifier: SearchTableViewMiniCell.reuseID)
+        tableView.register(SearchTableViewMiniCell.self, forCellReuseIdentifier: SearchTableViewMiniCell.reuseIdentifier)
         tableView.reloadData()
         
         tableView.translatesAutoresizingMaskIntoConstraints = false

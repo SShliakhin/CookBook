@@ -22,7 +22,7 @@ extension FavoriteRecipesDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewMiniCell.reuseID, for: indexPath) as! SearchTableViewMiniCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewMiniCell.reuseIdentifier, for: indexPath) as! SearchTableViewMiniCell
         let recipe = favoriteRecipes[indexPath.row]
         
         cell.configure(recipe: recipe)

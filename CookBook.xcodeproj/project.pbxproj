@@ -217,7 +217,7 @@
 		5AE1DEEC29350A3A00665540 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5AE1DEEE293510DA00665540 /* NetworkClient.swift */,
+				A57C92BA2940CE94002E7B50 /* Network */,
 				5A9B52972936C01600B88214 /* RecipesProvider.swift */,
 				5A9B529D2936C9FC00B88214 /* RecipesModelFromDataConverter.swift */,
 				A57D213D2938AB36007BDCC8 /* ImageCache.swift */,
@@ -271,6 +271,14 @@
 				A528B7C429365419001812A4 /* SearchViewController.swift */,
 			);
 			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		A57C92BA2940CE94002E7B50 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				5AE1DEEE293510DA00665540 /* NetworkClient.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

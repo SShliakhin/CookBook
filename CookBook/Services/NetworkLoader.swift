@@ -19,9 +19,9 @@ struct NetworkLoader {
         }
     }
     
-    func fetchRandomRecipes(completionHandler: @escaping (Result<RecipesData, Error>) -> ()) {
+    func fetchRandomRecipes<T: Decodable>(completionHandler: @escaping (Result<T, Error>) -> ()) {
         let router: NetworkRouter = .randomRequest
-        loadData(router.absoluteString) { (result: Result<RecipesData, Error>) in
+        loadData(router.absoluteString) { (result: Result<T, Error>) in
             switch result {
             case .success(let data):
                 completionHandler(.success(data))
@@ -31,9 +31,9 @@ struct NetworkLoader {
         }
     }
     
-    func fetchVegetarianRecipes(completionHandler: @escaping (Result<RecipesData, Error>) -> ()) {
+    func fetchVegetarianRecipes<T: Decodable>(completionHandler: @escaping (Result<T, Error>) -> ()) {
         let router: NetworkRouter = .randomVegetarianRequest
-        loadData(router.absoluteString) { (result: Result<RecipesData, Error>) in
+        loadData(router.absoluteString) { (result: Result<T, Error>) in
             switch result {
             case .success(let data):
                 completionHandler(.success(data))
@@ -43,9 +43,9 @@ struct NetworkLoader {
         }
     }
     
-    func fetchRecipeBy(id: Int, completionHandler: @escaping (Result<RecipesData.Recipe, Error>) -> ()) {
+    func fetchRecipeBy<T: Decodable>(id: Int, completionHandler: @escaping (Result<T, Error>) -> ()) {
         let stringUrl = "https://api.spoonacular.com/recipes/\(id)/information?apiKey=\(Secrets.apiKey)&includeNutrition=false"
-        loadData(stringUrl) { (result: Result<RecipesData.Recipe, Error>) in
+        loadData(stringUrl) { (result: Result<T, Error>) in
             switch result {
             case .success(let data):
                 completionHandler(.success(data))

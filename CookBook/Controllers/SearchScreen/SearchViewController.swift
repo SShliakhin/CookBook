@@ -56,11 +56,17 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
         let networkClient = NetworkClient()
-        networkClient.searchRecipe(with: searchText) { result in
-            let newResults = result.results.map { result in
-                SearchModel(searchResult: result)
+        let loader = NetworkLoader(networkClient: networkClient)
+        loader.fetchSearchRecipes(router: .searchRequest(text: searchText, number: 10, offset: 0)) { (result: Result<SearchResults, Error>) in
+            switch result {
+            case .success(let success):
+                let newResults = success.results.map { result in
+                    SearchModel(searchResult: result)
+                }
+                self.tableView.createSnapshot(items: newResults, toSection: .main)
+            case .failure(let failure):
+                print(failure.localizedDescription)
             }
-            self.tableView.createSnapshot(items: newResults, toSection: .main)
         }
     }
 }

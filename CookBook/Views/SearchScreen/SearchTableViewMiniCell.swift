@@ -77,7 +77,8 @@ extension SearchTableViewMiniCell {
         
         recipeLabel.attributedText = recipe.recipeString
         likeButton.setTitle(" \(recipe.aggregateLikes)", for: .normal)
-        networkClient.getImageFrom(stringUrl: recipe.image) { [weak self] image in
+        let loader = NetworkLoader(networkClient: networkClient)
+        loader.getRecipeImage(stringUrl: recipe.image) { [weak self] image in
             self?.searchImageView.configure(image: image)
         }
     }

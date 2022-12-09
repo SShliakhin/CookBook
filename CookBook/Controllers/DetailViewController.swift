@@ -94,6 +94,7 @@ extension DetailViewController{
         
         setupTableView()
         ingredientsButton.addTarget(self, action:  #selector(ButtonClicked), for: .touchUpInside)
+        ingredientsButton.addTarget(self, action:  #selector(ButtonClicked), for: .touchUpInside)
         instructionsButton.addTarget(self, action:  #selector(ButtonClicked), for: .touchUpInside)
     }
     
@@ -107,7 +108,6 @@ extension DetailViewController{
             for: buttonsStackView,
             subviews: [ingredientsButton, instructionsButton],
             spacing: 24,
-            axis: .horizontal,
             distribution: .fillEqually
         )
         
@@ -115,7 +115,8 @@ extension DetailViewController{
         arrangeStackView(
             for: mainStackView,
             subviews: [recipeImageView, buttonsStackView, counterLabel, recipeTableView],
-            spacing: 20
+            spacing: 20,
+            axis: .vertical
         )
         
         view.addSubview(mainStackView)
@@ -169,7 +170,7 @@ extension DetailViewController{
         for stackView: UIStackView,
         subviews: [UIView],
         spacing: CGFloat = 0,
-        axis: NSLayoutConstraint.Axis = .vertical,
+        axis: NSLayoutConstraint.Axis = .horizontal,
         distribution: UIStackView.Distribution = .fill,
         aligment: UIStackView.Alignment = .fill
     ) {
@@ -190,8 +191,9 @@ extension DetailViewController{
     func setupTableView(){
         recipeTableView.delegate = self
         
-        recipeTableView.register(DetailCell.self, forCellReuseIdentifier: DetailCell.reuseID)
-        recipeTableView.estimatedRowHeight = DetailCell.rowHeight
+        recipeTableView.register(InstructionCell.self, forCellReuseIdentifier: InstructionCell.reuseID)
+        recipeTableView.register(IngredientCell.self, forCellReuseIdentifier: IngredientCell.reuseID)
+        recipeTableView.estimatedRowHeight = InstructionCell.rowHeight
         recipeTableView.rowHeight = UITableView.automaticDimension
         recipeTableView.separatorStyle = .none
         
@@ -212,12 +214,11 @@ extension DetailViewController: UITableViewDelegate{
         return 1
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isShowInstructions {
-            let indexesToRedraw = [indexPath]
-            dataSourceSteps.instructions[indexPath.row].isChecked.toggle()
-            // TODO: - Make checkboxes work
-            tableView.reloadRows(at: indexesToRedraw, with: .fade)
-        }
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if isShowInstructions {
+//            let indexesToRedraw = [indexPath]
+//            dataSourceSteps.instructions[indexPath.row].isChecked.toggle()
+//            tableView.reloadRows(at: indexesToRedraw, with: .fade)
+//        }
+//    }
 }

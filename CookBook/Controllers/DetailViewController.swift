@@ -11,13 +11,26 @@ final class DetailViewController: UIViewController {
     // MARK: - UI elements
     private let mainStackView = UIStackView()
     
-    private let recipeImageView = UIImageView()
+    private let recipeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = Theme.imageCornerRadius
+        imageView.layer.masksToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     private let buttonsStackView = UIStackView()
     private let ingredientsButton = UIButton()
     private let instructionsButton = UIButton()
     
-    private let counterLabel = UILabel()
+    private let counterLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Theme.blackColor
+        label.font = .systemFont(ofSize: 25, weight: .medium)
+        return label
+    }()
+    
     private let recipeTableView = UITableView(frame: .zero, style: .plain)
         
     // MARK: - Properties
@@ -72,7 +85,6 @@ final class DetailViewController: UIViewController {
     }
 }
 
-
 // MARK: - Style, layout and setup
 extension DetailViewController{
     private func setup() {
@@ -86,12 +98,8 @@ extension DetailViewController{
     }
     
     private func applyStyle() {
-        applyStyleToImageView(for: recipeImageView)
-                
         applyStyleToSwitchButton(for: ingredientsButton, text: "Ingredients")
         applyStyleToSwitchButton(for: instructionsButton, text: "Recipe")
-        
-        applyStyleToLabel(for: counterLabel)
     }
     
     private func applyLayout() {
@@ -130,7 +138,7 @@ extension DetailViewController{
         button.isEnabled = false
         button.layer.backgroundColor = Theme.cbYellow50.cgColor
         button.setTitleColor(.white, for: .normal)
-        button.layer.shadowColor = UIColor(red: 255/255, green: 100/255, blue: 51/255, alpha: 0.29).cgColor
+        button.layer.shadowColor = Theme.shadowColor.cgColor
         button.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         button.layer.shadowOpacity = 1.0
         button.layer.shadowRadius = 3.0
@@ -142,19 +150,6 @@ extension DetailViewController{
         button.layer.backgroundColor = Theme.cbYellow20.cgColor
         button.setTitleColor(Theme.cbYellow50, for: .normal)
         button.layer.shadowOpacity = 0.0
-    }
-    
-    private func applyStyleToImageView(for imageView: UIImageView) {
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = Theme.imageCornerRadius
-        imageView.layer.masksToBounds = true
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func applyStyleToLabel(for label: UILabel) {
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 25, weight: .medium)
     }
     
     private func applyStyleToSwitchButton(

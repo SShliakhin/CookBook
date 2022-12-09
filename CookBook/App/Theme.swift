@@ -32,7 +32,9 @@ enum Theme {
     static let peachColor: UIColor = UIColor(named: "Peach")!
     static let beigeColor: UIColor = UIColor(named: "Beige")!
     static let orangeColor: UIColor = UIColor(named: "Orange")!
+    static let blackColor: UIColor = UIColor(named: "Black")!
     
+    static let shadowColor: UIColor = UIColor(red: 255/255, green: 100/255, blue: 51/255, alpha: 0.29)
     // MARK: - Style
     static let buttonCornerRadius: CGFloat = 15
     static let imageCornerRadius: CGFloat = 20

@@ -17,8 +17,30 @@ final class DetailViewController: UIViewController {
         imageView.layer.cornerRadius = Theme.imageCornerRadius
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(x: 0, y: 0, width: 400, height: 350)
+        let startColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+        let endColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        gradient.colors = [startColor, endColor]
+        imageView.layer.insertSublayer(gradient, at: 0)
+
         return imageView
     }()
+
+    private let recipeTitle: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 27, weight: .semibold)
+        label.textColor = Theme.cbWhite
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let detailStackView = UIStackView()
+    private let caloriesLabel = UILabel()
+    private let servingsLabel = UILabel()
+    private let timeLabel = UILabel()
     
     private let buttonsStackView = UIStackView()
     private let ingredientsButton = UIButton()
@@ -91,7 +113,6 @@ extension DetailViewController{
         networkLoader.getRecipeImage(stringUrl: recipe.image) { [weak self] image in
             self?.recipeImageView.image = image
         }
-        
         setupTableView()
         ingredientsButton.addTarget(self, action:  #selector(ButtonClicked), for: .touchUpInside)
         ingredientsButton.addTarget(self, action:  #selector(ButtonClicked), for: .touchUpInside)
@@ -101,9 +122,18 @@ extension DetailViewController{
     private func applyStyle() {
         applyStyleToSwitchButton(for: ingredientsButton, text: "Ingredients")
         applyStyleToSwitchButton(for: instructionsButton, text: "Recipe")
+        recipeTitle.text = recipe.title
+        adjustDetailLabel(for: caloriesLabel, mainText: String(recipe.calories), secondaryText: " kcal")
+        adjustDetailLabel(for: servingsLabel, mainText: String(recipe.servings), secondaryText: " serv")
+        adjustDetailLabel(for: timeLabel, mainText: String(recipe.readyInMinutes), secondaryText: " min")
     }
     
     private func applyLayout() {
+        detailStackView.translatesAutoresizingMaskIntoConstraints = false
+        arrangeStackView(for: detailStackView,
+                         subviews: [timeLabel, caloriesLabel, servingsLabel],
+                         distribution: .equalSpacing)
+        
         arrangeStackView(
             for: buttonsStackView,
             subviews: [ingredientsButton, instructionsButton],
@@ -118,9 +148,9 @@ extension DetailViewController{
             spacing: 20,
             axis: .vertical
         )
-        
         view.addSubview(mainStackView)
-        
+        view.addSubview(recipeTitle)
+        view.addSubview(detailStackView)
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
@@ -128,9 +158,15 @@ extension DetailViewController{
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
             recipeImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/3),
+            recipeTitle.leadingAnchor.constraint(equalTo: recipeImageView.leadingAnchor, constant: 8),
+            recipeTitle.bottomAnchor.constraint(equalTo: recipeImageView.bottomAnchor, constant: -40),
+            recipeTitle.widthAnchor.constraint(equalTo: recipeImageView.widthAnchor, constant: -16),
+            
+            detailStackView.bottomAnchor.constraint(equalTo: recipeImageView.bottomAnchor, constant: -10),
+            detailStackView.leadingAnchor.constraint(equalTo: recipeImageView.leadingAnchor, constant: 20),
+            detailStackView.trailingAnchor.constraint(equalTo: recipeImageView.trailingAnchor, constant: -20),
             
             buttonsStackView.heightAnchor.constraint(equalToConstant: 44)
-            
         ])
     }
     
@@ -144,6 +180,23 @@ extension DetailViewController{
         button.layer.shadowOpacity = 1.0
         button.layer.shadowRadius = 3.0
         button.layer.masksToBounds = false
+    }
+    
+    private func adjustDetailLabel(for label: UILabel,
+                                   mainText: String,
+                                   secondaryText: String){
+        label.textColor = Theme.cbWhite
+        
+        let attributesForMain = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)]
+        let attributesForSecondary = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .thin)]
+
+        let boldString = NSMutableAttributedString(string: mainText, attributes: attributesForMain)
+        let thinString = NSMutableAttributedString(string: secondaryText, attributes: attributesForSecondary)
+        thinString.addAttribute(.baselineOffset, value: 2, range: NSRange(location: 0, length: thinString.length))
+        let attributedString = NSMutableAttributedString(attributedString: boldString)
+        attributedString.append(thinString)
+        
+        label.attributedText = attributedString
     }
     
     private func applyStyleToUnactiveButton(for button: UIButton) {
@@ -213,12 +266,4 @@ extension DetailViewController: UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if isShowInstructions {
-//            let indexesToRedraw = [indexPath]
-//            dataSourceSteps.instructions[indexPath.row].isChecked.toggle()
-//            tableView.reloadRows(at: indexesToRedraw, with: .fade)
-//        }
-//    }
 }

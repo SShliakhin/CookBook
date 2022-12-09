@@ -20,37 +20,45 @@ class InstructionCell: UITableViewCell{
     let networkLoader = NetworkLoader(networkClient: NetworkClient())
     
     // MARK: - UI Elements
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = Theme.cbYellow20
-        stackView.layer.cornerRadius = 5
-        stackView.layer.masksToBounds = true
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
+    private let cellView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Theme.cbYellow20
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let mainTextLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private let timeLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private var checkboxButton: UIButton = {
+    
+    private var timeButton: UIButton = {
         let button = UIButton()
-        button.tintColor = Theme.cbYellow50
-        button.imageView?.contentMode = .scaleAspectFill
+        var clockImage: UIImage? = {
+            let config = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
+            let image = UIImage(systemName: "clock", withConfiguration: config)
+            return image
+        }()
+        button.setImage(clockImage, for: .normal)
+        button.tintColor = Theme.cbWhite
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        button.sizeToFit()
+        button.setTitleColor(Theme.cbWhite, for: .normal)
+        button.backgroundColor = Theme.cbGreen50
+        button.layer.cornerRadius = 10
+        button.layer.cornerCurve = .continuous
+        button.layer.masksToBounds = true
+        //view.addTarget(self, action: #selector(timeButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -68,39 +76,38 @@ class InstructionCell: UITableViewCell{
 // MARK: - Style, layout and configuration
 extension InstructionCell {
     private func setup() {
-        checkboxButton.addTarget(self, action:  #selector(CheckboxClicked), for: .touchUpInside)
     }
     
     private func applyStyle(){
     }
     
     private func layout() {
-        arrangeStackView(for: stackView,
-                         subviews: [mainTextLabel, timeLabel],
-                         spacing: 10,
-                         axis: .vertical,
-                         aligment: .center)
-        contentView.addSubview(checkboxButton)
-        contentView.addSubview(stackView)
+        cellView.addSubview(mainTextLabel)
+        contentView.addSubview(timeButton)
+        contentView.addSubview(cellView)
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            stackView.leadingAnchor.constraint(equalTo: checkboxButton.trailingAnchor, constant: 5),
-            stackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
+            cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
+            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            cellView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
             
-            checkboxButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkboxButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            checkboxButton.widthAnchor.constraint(equalToConstant: 30),
-            checkboxButton.heightAnchor.constraint(equalToConstant: 30)
+            mainTextLabel.topAnchor.constraint(greaterThanOrEqualTo: cellView.topAnchor, constant: 10),
+            mainTextLabel.bottomAnchor.constraint(lessThanOrEqualTo: cellView.bottomAnchor, constant: -10),
+            mainTextLabel.trailingAnchor.constraint(lessThanOrEqualTo: cellView.trailingAnchor, constant: -10),
+            mainTextLabel.leadingAnchor.constraint(greaterThanOrEqualTo: cellView.leadingAnchor, constant: 10),
+
+            timeButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            timeButton.topAnchor.constraint(equalTo: cellView.bottomAnchor, constant: 12.5),
+            timeButton.widthAnchor.constraint(equalToConstant: 80),
+            timeButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
     func configure(recipeInstruction: InstructionModel){
         mainTextLabel.text = recipeInstruction.step
-        timeLabel.text = "\(recipeInstruction.minutes) min"
         self.isChecked = recipeInstruction.isChecked
-        checkboxButton.setImage(isChecked ? imageChecked : imageUnchecked, for: .normal)
+        timeButton.setTitle(" \(recipeInstruction.minutes)", for: .normal)
     }
 }
 
@@ -128,8 +135,5 @@ extension InstructionCell{
 
 // MARK: - Actions
 extension InstructionCell{
-    @objc private func CheckboxClicked() {
-        isChecked.toggle()
-        checkboxButton.setImage(isChecked ? imageChecked : imageUnchecked, for: .normal)
-    }
+    
 }

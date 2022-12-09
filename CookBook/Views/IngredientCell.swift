@@ -18,7 +18,7 @@ class IngredientCell: UITableViewCell{
     private let ingredientView: UIView = {
         let view = UIView()
         view.backgroundColor = Theme.cbYellow20
-        view.layer.cornerRadius = 5
+        view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -65,8 +65,14 @@ extension IngredientCell {
             ingredientView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             ingredientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             ingredientView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            ingredientView.leadingAnchor.constraint(equalTo: imageIngredient.trailingAnchor, constant: 5),
+            ingredientView.leadingAnchor.constraint(equalTo: imageIngredient.trailingAnchor, constant: 10),
             ingredientView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
+            
+            mainTextLabel.centerXAnchor.constraint(equalTo: ingredientView.centerXAnchor),
+            mainTextLabel.centerYAnchor.constraint(equalTo: ingredientView.centerYAnchor),
+            mainTextLabel.trailingAnchor.constraint(lessThanOrEqualTo: ingredientView.trailingAnchor, constant: -10),
+            mainTextLabel.leadingAnchor.constraint(greaterThanOrEqualTo: ingredientView.leadingAnchor, constant: 10),
+
             
             imageIngredient.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             imageIngredient.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),

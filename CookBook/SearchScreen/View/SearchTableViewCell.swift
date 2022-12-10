@@ -43,7 +43,6 @@ final class SearchTableViewCell: UITableViewCell {
         var view = UILabel()
         view.textAlignment = .center
         view.text = "20 Minutes"
-        view.font = .preferredFont(forTextStyle: .subheadline)
         view.adjustsFontForContentSizeCategory = true
         view.textColor = Theme.cbWhite
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +52,6 @@ final class SearchTableViewCell: UITableViewCell {
         var view = UILabel()
         view.textAlignment = .center
         view.text = "14 Ingredients"
-        view.font = .preferredFont(forTextStyle: .subheadline)
         view.adjustsFontForContentSizeCategory = true
         view.textColor = .placeholderText
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +61,6 @@ final class SearchTableViewCell: UITableViewCell {
         var view = UILabel()
         view.textAlignment = .center
         view.text = "550 Calories"
-        view.font = .preferredFont(forTextStyle: .subheadline)
         view.adjustsFontForContentSizeCategory = true
         view.textColor = Theme.cbWhite
         view.translatesAutoresizingMaskIntoConstraints = false

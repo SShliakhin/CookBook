@@ -26,7 +26,7 @@ class IngredientCell: UITableViewCell{
     
     private let mainTextLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = Theme.Fonts.cbBodyFont
         label.numberOfLines = 0
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false

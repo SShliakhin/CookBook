@@ -8,7 +8,7 @@ final class SearchTableViewMiniCell: UITableViewCell {
     var recipe: SearchModel?
     
     private lazy var heartImage: UIImage? = {
-        let config = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
+        let config = UIImage.SymbolConfiguration(font: Theme.Fonts.cbSmallButtonFont)
         let image = UIImage(systemName: "heart", withConfiguration: config)
         return image
     }()
@@ -30,7 +30,7 @@ final class SearchTableViewMiniCell: UITableViewCell {
         view.numberOfLines = 2
         view.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         view.setContentHuggingPriority(.defaultLow, for: .vertical)
-        view.font = .preferredFont(forTextStyle: .headline)
+        view.font = Theme.Fonts.cbRecipeTitleSmall
         view.adjustsFontForContentSizeCategory = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -41,7 +41,7 @@ final class SearchTableViewMiniCell: UITableViewCell {
         view.numberOfLines = 3
         view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         view.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        view.font = .preferredFont(forTextStyle: .headline)
+        view.font = Theme.Fonts.cbAttributeBoldSmaller
         view.adjustsFontForContentSizeCategory = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

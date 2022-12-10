@@ -15,9 +15,9 @@ struct SearchModel: Hashable {
         let timeString = "\(readyInMinutes) Minutes"
         
         let attributedString = NSMutableAttributedString(string: ingidientsString + caloriesString + timeString)
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(ingidientsString.count - 12, 11))
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(ingidientsString.count + caloriesString.count - 9, 8))
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(ingidientsString.count + caloriesString.count + timeString.count - 7, 7))
+        attributedString.addAttribute(.font, value: Theme.Fonts.cbAttributeThinSmaller, range: NSMakeRange(ingidientsString.count - 12, 11))
+        attributedString.addAttribute(.font, value: Theme.Fonts.cbAttributeThinSmaller, range: NSMakeRange(ingidientsString.count + caloriesString.count - 9, 8))
+        attributedString.addAttribute(.font, value: Theme.Fonts.cbAttributeThinSmaller, range: NSMakeRange(ingidientsString.count + caloriesString.count + timeString.count - 7, 7))
         return attributedString
     }
     

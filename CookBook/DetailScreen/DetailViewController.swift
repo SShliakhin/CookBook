@@ -30,7 +30,8 @@ final class DetailViewController: UIViewController {
 
     private let recipeTitle: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 27, weight: .semibold)
+        label.adjustsFontForContentSizeCategory = true
+        label.font = Theme.Fonts.cbRecipeTitle
         label.textColor = Theme.cbWhite
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +50,7 @@ final class DetailViewController: UIViewController {
     private let counterLabel: UILabel = {
         let label = UILabel()
         label.textColor = Theme.blackColor
-        label.font = .systemFont(ofSize: 25, weight: .medium)
+        label.font = Theme.Fonts.cbBigLabel
         return label
     }()
     
@@ -189,8 +190,8 @@ extension DetailViewController{
                                    secondaryText: String){
         label.textColor = Theme.cbWhite
         
-        let attributesForMain = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)]
-        let attributesForSecondary = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .thin)]
+        let attributesForMain = [NSAttributedString.Key.font : Theme.Fonts.cbAttributeBold]
+        let attributesForSecondary = [NSAttributedString.Key.font: Theme.Fonts.cbAttributeThin]
 
         let boldString = NSMutableAttributedString(string: mainText, attributes: attributesForMain)
         let thinString = NSMutableAttributedString(string: secondaryText, attributes: attributesForSecondary)
@@ -217,7 +218,7 @@ extension DetailViewController{
         button.setTitleColor(.black, for: .normal)
         button.setTitle(text, for: .normal)
         button.layer.cornerRadius = 10
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
+        button.titleLabel?.font = Theme.Fonts.cbRecipeTitleSmall
         button.translatesAutoresizingMaskIntoConstraints = false
     }
     

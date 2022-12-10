@@ -31,7 +31,7 @@ class InstructionCell: UITableViewCell{
     
     private let mainTextLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = Theme.Fonts.cbBodyFont
         label.numberOfLines = 0
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ class InstructionCell: UITableViewCell{
     private var timeButton: UIButton = {
         let button = UIButton()
         var clockImage: UIImage? = {
-            let config = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
+            let config = UIImage.SymbolConfiguration(font: Theme.Fonts.cbSmallButtonFont)
             let image = UIImage(systemName: "clock", withConfiguration: config)
             return image
         }()

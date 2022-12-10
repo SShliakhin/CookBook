@@ -76,10 +76,15 @@ class PopularViewController: UIViewController {
         }
     }
     
+    static let danse = ["D", "A", "N", "S", "E"].shuffled() // Shuffling an array
+   // Getting always 2 different items from array
+    let danse1 = danse[0]
+    let danse2 = danse[1]
+    
     private func fetchRandom(group: DispatchGroup) {
         group.enter()
-        let danse = ["D", "A", "N", "S", "E"].randomElement()
-        loader.fetchSearchRecipes(router: .searchRequest(text: danse!, number: 10, offset: 0)) { [weak self] (result: Result<SearchResults, Error>) in
+       
+        loader.fetchSearchRecipes(router: .searchRequest(text: danse1, number: 10, offset: 0)) { [weak self] (result: Result<SearchResults, Error>) in
             switch result {
             case .success(let success):
                 let searchModels = success.results.map { result in
@@ -99,9 +104,9 @@ class PopularViewController: UIViewController {
     
     private func fetchVegan(group: DispatchGroup) {
         group.enter()
-        let tags = ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy"].randomElement()
-        let danse = ["D", "A", "N", "S", "E"].randomElement()
-        loader.fetchVegetarianRecipes(router: .randomVegetarianRequest(text: danse!, number: 10, offset: 0, tags: tags!)) { [weak self] (result: Result<SearchResults, Error>) in
+        let tags = ["vegetarian", "vegan", "glutenFree", "Paleo", "Seafood"].randomElement()
+
+        loader.fetchVegetarianRecipes(router: .randomVegetarianRequest(text: danse2, number: 10, offset: 0, tags: tags!)) { [weak self] (result: Result<SearchResults, Error>) in
             switch result {
             case .success(let success):
                 let searchModels = success.results.map { result in

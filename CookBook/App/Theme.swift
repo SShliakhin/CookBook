@@ -45,4 +45,5 @@ enum Theme {
     static let spacing: CGFloat = 20
     static let leftOffset: CGFloat = 20
     static let topOffset: CGFloat = 10
+    static let rightOffset: CGFloat = -20
 }

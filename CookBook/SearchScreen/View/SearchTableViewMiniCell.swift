@@ -54,6 +54,8 @@ final class SearchTableViewMiniCell: UITableViewCell {
         view.sizeToFit()
         view.setTitleColor(Theme.cbWhite, for: .normal)
         view.backgroundColor = Theme.cbGreen50
+        view.titleLabel?.font = Theme.Fonts.cbSmallButtonFont
+        view.titleLabel?.adjustsFontForContentSizeCategory = true
         view.layer.cornerRadius = 10
         view.layer.cornerCurve = .continuous
         view.layer.masksToBounds = true
@@ -90,6 +92,7 @@ extension SearchTableViewMiniCell {
         
         titleLabel.text = recipe.title
         subTitleLabel.attributedText = recipe.subTitleAttributedString
+        subTitleLabel.adjustsFontForContentSizeCategory = true
         likeButton.setTitle(" \(recipe.aggregateLikes)", for: .normal)
         let loader = NetworkLoader(networkClient: networkClient)
         loader.getRecipeImage(stringUrl: recipe.image) { [weak self] image in

@@ -43,15 +43,17 @@ final class SearchTableViewCell: UITableViewCell {
         var view = UILabel()
         view.textAlignment = .center
         view.text = "20 Minutes"
+        view.font = .preferredFont(forTextStyle: .subheadline)
         view.adjustsFontForContentSizeCategory = true
-        view.textColor = Theme.cbWhite
+        view.textColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     private lazy var ingridientsLabel: UILabel = {
         var view = UILabel()
         view.textAlignment = .center
-        view.text = "14 Ingredients"
+        view.text = "14 Ingridients"
+        view.font = .preferredFont(forTextStyle: .subheadline)
         view.adjustsFontForContentSizeCategory = true
         view.textColor = .placeholderText
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -61,8 +63,9 @@ final class SearchTableViewCell: UITableViewCell {
         var view = UILabel()
         view.textAlignment = .center
         view.text = "550 Calories"
+        view.font = .preferredFont(forTextStyle: .subheadline)
         view.adjustsFontForContentSizeCategory = true
-        view.textColor = Theme.cbWhite
+        view.textColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

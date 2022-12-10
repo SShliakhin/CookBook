@@ -24,7 +24,7 @@ final class OnboardingViewController: UIViewController {
     private let startButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = Theme.cbYellow50
-        button.contentEdgeInsets = UIEdgeInsets(top: 1, left: 5, bottom: 0, right: 5)
+        button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 0, right: 5)
         button.setTitle("Get the recipes", for: [])
         button.titleLabel?.font = Theme.Fonts.cbOnboardingButtonTitleFont
         button.setTitleColor(Theme.appColor, for: .normal)

@@ -18,6 +18,7 @@ struct SearchModel: Hashable {
         attributedString.addAttribute(.font, value: Theme.Fonts.cbAttributeThinSmaller, range: NSMakeRange(ingidientsString.count - 12, 11))
         attributedString.addAttribute(.font, value: Theme.Fonts.cbAttributeThinSmaller, range: NSMakeRange(ingidientsString.count + caloriesString.count - 9, 8))
         attributedString.addAttribute(.font, value: Theme.Fonts.cbAttributeThinSmaller, range: NSMakeRange(ingidientsString.count + caloriesString.count + timeString.count - 7, 7))
+
         return attributedString
     }
     

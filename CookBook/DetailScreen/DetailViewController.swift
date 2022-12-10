@@ -49,8 +49,9 @@ final class DetailViewController: UIViewController {
     
     private let counterLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Theme.blackColor
-        label.font = Theme.Fonts.cbBigLabel
+        label.textColor = Theme.cbGreen80
+        label.font = Theme.Fonts.cbMediumLabel
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
     
@@ -198,7 +199,7 @@ extension DetailViewController{
         thinString.addAttribute(.baselineOffset, value: 2, range: NSRange(location: 0, length: thinString.length))
         let attributedString = NSMutableAttributedString(attributedString: boldString)
         attributedString.append(thinString)
-        
+        label.adjustsFontForContentSizeCategory = true
         label.attributedText = attributedString
     }
     
@@ -218,6 +219,7 @@ extension DetailViewController{
         button.setTitleColor(.black, for: .normal)
         button.setTitle(text, for: .normal)
         button.layer.cornerRadius = 10
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = Theme.Fonts.cbRecipeTitleSmall
         button.translatesAutoresizingMaskIntoConstraints = false
     }

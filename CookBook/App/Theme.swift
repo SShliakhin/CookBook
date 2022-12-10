@@ -16,13 +16,13 @@ enum Theme {
         static let cbOnboardingButtonTitleFont: UIFont = UIFont.preferredFont(forTextStyle: .title1).bold().withSize(16)
         static let cbRecipeTitleSmall: UIFont = .preferredFont(forTextStyle: .headline)
         static let cbRecipeTitle: UIFont = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.systemFont(ofSize: 25, weight: .semibold))
-        static let cbBigLabel: UIFont = UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 25, weight: .medium))
+        static let cbMediumLabel: UIFont = UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .medium))
         static let cbAttributeBold: UIFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.boldSystemFont(ofSize: 20))
         static let cbAttributeBoldSmaller: UIFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.boldSystemFont(ofSize: 16))
         static let cbAttributeThin: UIFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .thin))
         static let cbAttributeThinSmaller: UIFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 14, weight: .thin))
         static let cbBodyFont: UIFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 15, weight: .regular))
-        static let cbSmallButtonFont: UIFont = .preferredFont(forTextStyle: .headline)
+        static let cbSmallButtonFont: UIFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 16, weight: .regular))
 
     }
     // MARK: - Symbol Configuration
@@ -31,6 +31,7 @@ enum Theme {
     // MARK: - Colors
 
     static let appColor: UIColor = UIColor(named: "cbApp")!
+    static let cbBlack: UIColor = UIColor(named: "cbBlack")!
     static let cbWhite: UIColor = UIColor(named: "cbWhite")!
     static let cbGreen50: UIColor = UIColor(named: "cbGreen50")!
     static let cbGreen80: UIColor = UIColor(named: "cbGreen80")!

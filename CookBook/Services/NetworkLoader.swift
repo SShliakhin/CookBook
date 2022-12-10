@@ -47,8 +47,8 @@ struct NetworkLoader {
         }
     }
     
-    func fetchVegetarianRecipes<T: Decodable>(completionHandler: @escaping (Result<T, Error>) -> ()) {
-        let router: NetworkRouter = .randomVegetarianRequest
+    func fetchVegetarianRecipes<T: Decodable>(router: NetworkRouter, completionHandler: @escaping (Result<T, Error>) -> ()) {
+        //        let router: NetworkRouter = .randomVegetarianRequest
         loadData(router.absoluteString) { (result: Result<T, Error>) in
             switch result {
             case .success(let data):
@@ -146,7 +146,7 @@ private extension NetworkLoader {
 
 enum NetworkRouter {
     case randomRequest
-    case randomVegetarianRequest
+    case randomVegetarianRequest(text: String, number: Int, offset: Int, tags: String)
     case searchRequest(text: String, number: Int, offset: Int)
     case searchAutoComplete(text: String)
     
@@ -170,9 +170,9 @@ enum NetworkRouter {
     
     var path: String {
         switch self {
-        case .randomRequest, .randomVegetarianRequest:
+        case .randomRequest:
             return "/recipes/random"
-        case .searchRequest:
+        case .searchRequest, .randomVegetarianRequest:
             return "/recipes/complexSearch"
         case .searchAutoComplete:
             return "/recipes/autocomplete"
@@ -181,10 +181,15 @@ enum NetworkRouter {
     
     var queryItems: [URLQueryItem] {
         switch self {
-        case .randomVegetarianRequest:
+        case .randomVegetarianRequest(let text, let number, let offset, let tags):
             return [URLQueryItem(name: "apiKey", value: apiKey),
-                    URLQueryItem(name: "number", value: String(10)),
-                    URLQueryItem(name: "tags", value: "vegetarian")]
+                    URLQueryItem(name: "number", value: "\(number)"),
+                    URLQueryItem(name: "addRecipeNutrition", value: String(true)),
+                    URLQueryItem(name: "addRecipeInformation", value: String(true)),
+                    URLQueryItem(name: "sort", value: "popularity"),
+                    URLQueryItem(name: "query", value: text),
+                    URLQueryItem(name: "offset", value: "\(offset)"),
+                    URLQueryItem(name: "tags", value: tags)]
         case .searchRequest(let text, let number, let offset):
             return [URLQueryItem(name: "apiKey", value: apiKey),
                     URLQueryItem(name: "number", value: "\(number)"),

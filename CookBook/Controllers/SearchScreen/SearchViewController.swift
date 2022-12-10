@@ -165,8 +165,9 @@ extension SearchViewController: SearchTableViewDelegate {
                 title: recipe.title,
                 aggregateLikes: recipe.aggregateLikes,
                 readyInMinutes: recipe.readyInMinutes,
+                servings: recipe.servings,
                 image: recipe.image,
-                calories: 0,
+                calories: 100,
                 ingredients: recipe.ingredients.map { res in
                         .init(image: res.image, original: res.original)
                 },

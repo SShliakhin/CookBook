@@ -21,9 +21,9 @@ extension MainViewController {
         let favoriteVC = FavoriteViewController()
         let searchVC = SearchViewController()
 
-        popularVC.setTabBarImage(imageName: "star.fill", title: "popular")
-        favoriteVC.setTabBarImage(imageName: "heart.fill", title: "favorite")
-        searchVC.setTabBarImage(imageName: "magnifyingglass", title: "search")
+        popularVC.setTabBarImage(imageName: "star.fill", title: "Popular")
+        favoriteVC.setTabBarImage(imageName: "heart.fill", title: "Favorite")
+        searchVC.setTabBarImage(imageName: "magnifyingglass", title: "Discover")
 
         let popularNC = UINavigationController(rootViewController: popularVC)
         let favoriteNC = UINavigationController(rootViewController: favoriteVC)

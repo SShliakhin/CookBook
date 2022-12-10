@@ -40,6 +40,8 @@ enum Theme {
     // MARK: - Style
     static let buttonCornerRadius: CGFloat = 15
     static let imageCornerRadius: CGFloat = 20
+    static let shadowOffset: CGSize = CGSize(width: 0.0, height: 4.0)
+    static let shadowRadius: Double = 3.0
     
     // MARK: - Layout
     static let spacing: CGFloat = 20

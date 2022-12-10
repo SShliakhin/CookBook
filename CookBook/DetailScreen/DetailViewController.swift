@@ -178,9 +178,9 @@ extension DetailViewController{
         button.layer.backgroundColor = Theme.cbYellow50.cgColor
         button.setTitleColor(.white, for: .normal)
         button.layer.shadowColor = Theme.shadowColor.cgColor
-        button.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        button.layer.shadowOffset = Theme.shadowOffset
         button.layer.shadowOpacity = 1.0
-        button.layer.shadowRadius = 3.0
+        button.layer.shadowRadius = Theme.shadowRadius
         button.layer.masksToBounds = false
     }
     

@@ -52,7 +52,7 @@ final class SearchTableViewMiniCell: UITableViewCell {
         view.tintColor = Theme.cbYellow50
         view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         view.sizeToFit()
-        view.setTitleColor(.label, for: .normal)
+        view.setTitleColor(Theme.cbWhite, for: .normal)
         view.backgroundColor = Theme.cbGreen50
         view.layer.cornerRadius = 10
         view.layer.cornerCurve = .continuous

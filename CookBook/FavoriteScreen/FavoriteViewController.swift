@@ -38,10 +38,8 @@ final class FavoriteViewController: UIViewController {
         // Qewhouse >>>>>>
         if tableView.visibleCells.isEmpty {
             tableView.backgroundColor = .clear
-            tableView.reloadData()
         } else {
             tableView.backgroundColor = Theme.appColor
-            tableView.reloadData()
         }
         //<<<<<< Qewhouse
     }
@@ -67,7 +65,7 @@ private extension FavoriteViewController {
         NSLayoutConstraint.activate([
             // Qewhouse >>>>>>
             initialImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Theme.leftOffset),
-            initialImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Theme.rightOffset),
+            initialImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Theme.leftOffset),
             initialImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             //<<<<<< Qewhouse
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
